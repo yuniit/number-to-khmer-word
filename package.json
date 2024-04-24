@@ -12,9 +12,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "prepare": "npm run build",
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.json",
-    "postbuild": "cd example && npm install $(npm pack ../ | tail -1)",
     "update": "npx npm-check-updates -u",
     "test": "ts-node ./test/test.ts"
   },
