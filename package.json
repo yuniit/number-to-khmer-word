@@ -1,6 +1,6 @@
 {
-  "name": "number_to_khmer_word",
-  "version": "0.0.6",
+  "name": "@yuniit/number-2-khmer-word",
+  "version": "0.0.7",
   "description": "Javascript and Typescript library for converting Arabic numerals to Khmer words",
   "keywords": [
     "number",
@@ -12,20 +12,20 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepare": "npm run build",
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.json",
+    "postbuild": "cd example && npm install $(npm pack ../ | tail -1)",
     "update": "npx npm-check-updates -u",
     "test": "ts-node ./test/test.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vh13294/number-to-khmer-word.git"
+    "url": "git+https://github.com/yuniit/number-to-khmer-word"
   },
   "bugs": {
-    "url": "https://github.com/vh13294/number-to-khmer-word/issues"
+    "url": "https://github.com/yuniit/number-to-khmer-word/issues"
   },
-  "homepage": "https://github.com/vh13294/number-to-khmer-word#readme",
+  "homepage": "https://github.com/yuniit/number-to-khmer-word#readme",
   "author": "Vong Panha Huot",
   "license": "MIT",
   "devDependencies": {
