@@ -1,6 +1,6 @@
 {
   "name": "@yuniit/number-2-khmer-word",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Javascript and Typescript library for converting Arabic numerals to Khmer words",
   "keywords": [
     "number",
