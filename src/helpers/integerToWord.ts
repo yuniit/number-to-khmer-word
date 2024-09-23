@@ -26,11 +26,9 @@ const DOUBLE_DIGIT = [
 const WORDS = {
   HUNDRED: 'រយ',
   THOUSAND: 'ពាន់',
-  TEN_THOUSAND: 'ម៉ឺន',
-  HUNDRED_THOUSAND: 'សែន',
+  HUNDRED_THOUSAND: 'រយពាន់',
   MILLION: 'លាន',
-  BILLION: 'ប៊ីលាន',
-  TRILLION: 'ទ្រីលាន'
+  HUN_MILLION: 'រយលាន'
 }
 
 const TEN = 10
@@ -40,8 +38,6 @@ const TEN_THOUSAND = 10_000
 const ONE_HUNDRED_THOUSAND = 100_000
 const ONE_MILLION = 1000_000
 const ONE_BILLION = 1000_000_000
-const ONE_TRILLION = 1000_000_000_000
-const ONE_QUADRILLION = 1000_000_000_000_000n
 
 export function integerToWord(num: number, separator: string): string {
   let word = ''
@@ -60,21 +56,31 @@ export function integerToWord(num: number, separator: string): string {
     word = SINGLE_DIGIT[Math.floor(num / ONE_THOUSAND)] + WORDS.THOUSAND
   } else if (num < ONE_HUNDRED_THOUSAND) {
     remainder = num % TEN_THOUSAND
-    word = SINGLE_DIGIT[Math.floor(num / TEN_THOUSAND)] + WORDS.TEN_THOUSAND
+    word = DOUBLE_DIGIT[Math.floor(num / TEN_THOUSAND)]
+    if (remainder < ONE_THOUSAND) {
+      word += WORDS.THOUSAND
+    }
   } else if (num < ONE_MILLION) {
     remainder = num % ONE_HUNDRED_THOUSAND
-    word =
-      SINGLE_DIGIT[Math.floor(num / ONE_HUNDRED_THOUSAND)] +
-      WORDS.HUNDRED_THOUSAND
+    word = SINGLE_DIGIT[Math.floor(num / ONE_HUNDRED_THOUSAND)]
+    if (remainder < ONE_THOUSAND) {
+      word += WORDS.HUNDRED_THOUSAND
+    } else if (remainder < ONE_HUNDRED_THOUSAND) {
+      word += WORDS.HUNDRED
+    }
   } else if (num < ONE_BILLION) {
     remainder = num % ONE_MILLION
-    word = integerToWord(Math.floor(num / ONE_MILLION),separator) + WORDS.MILLION
-  } else if (num < ONE_TRILLION) {
+    word =
+      integerToWord(Math.floor(num / ONE_MILLION), separator) + WORDS.MILLION
+  } else if (num < 10_000_000_000) {
     remainder = num % ONE_BILLION
-    word = integerToWord(Math.floor(num / ONE_BILLION),separator) + WORDS.BILLION
-  } else if (num < ONE_QUADRILLION) {
-    remainder = num % ONE_TRILLION
-    word = integerToWord(Math.floor(num / ONE_TRILLION),separator) + WORDS.TRILLION
+    word = DOUBLE_DIGIT[Math.floor(Math.floor(num / ONE_BILLION))]
+
+    if (!remainder) {
+      word += WORDS.HUN_MILLION
+    } else if (remainder < 100_000_000) {
+      word += WORDS.HUNDRED
+    }
   }
 
   if (remainder !== 0) {
